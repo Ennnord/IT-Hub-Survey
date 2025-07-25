@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Опрос для новых участников</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .name-fields {
+            display: flex;
+            gap: 10px;
+        }
+        .name-fields div {
+            flex: 1;
+        }
+        .checkbox-group {
+            margin-top: 5px;
+        }
+        .checkbox-item {
+            margin-bottom: 5px;
+        }
+        button {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0077bb;
+        }
+        .required:after {
+            content: " *";
+            color: red;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Опрос для новых участников</h1>
+        <p>Пожалуйста, заполните все обязательные поля (отмечены *) до конца августа</p>
+
+        <form id="surveyForm">
+            <div class="form-group">
+                <label class="required">Фамилия</label>
+                <input type="text" id="lastName" required>
+                <div id="lastNameError" class="error">Пожалуйста, введите фамилию</div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Имя</label>
+                <input type="text" id="firstName" required>
+                <div id="firstNameError" class="error">Пожалуйста, введите имя</div>
+            </div>
+
+            <div class="form-group">
+                <label>Отчество</label>
+                <input type="text" id="middleName">
+            </div>
+
+            <div class="form-group">
+                <label class="required">Группа</label>
+                <select id="group" required>
+                    <option value="">Выберите группу</option>
+                    <option value="Группа 1">Группа 1</option>
+                    <option value="Группа 2">Группа 2</option>
+                    <option value="Группа 3">Группа 3</option>
+                    <!-- Добавьте другие группы по необходимости -->
+                </select>
+                <div id="groupError" class="error">Пожалуйста, выберите группу</div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Телефон</label>
+                <input type="tel" id="phone" required>
+                <div id="phoneError" class="error">Пожалуйста, введите корректный номер телефона</div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Email</label>
+                <input type="email" id="email" required>
+                <div id="emailError" class="error">Пожалуйста, введите корректный email</div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Лаборатория</label>
+                <select id="laboratory" required>
+                    <option value="">Выберите лабораторию</option>
+                    <option value="Лаборатория 1">Лаборатория 1</option>
+                    <option value="Лаборатория 2">Лаборатория 2</option>
+                    <option value="Лаборатория 3">Лаборатория 3</option>
+                    <!-- Добавьте другие лаборатории по необходимости -->
+                </select>
+                <div id="laboratoryError" class="error">Пожалуйста, выберите лабораторию</div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Направления</label>
+                <div class="checkbox-group" id="directions">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="direction1" name="direction" value="Направление 1">
+                        <label for="direction1">Направление 1</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="direction2" name="direction" value="Направление 2">
+                        <label for="direction2">Направление 2</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="direction3" name="direction" value="Направление 3">
+                        <label for="direction3">Направление 3</label>
+                    </div>
+                    <!-- Добавьте другие направления по необходимости -->
+                </div>
+                <div id="directionsError" class="error">Пожалуйста, выберите хотя бы одно направление</div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Есть ли опыт?</label>
+                <select id="experience" required>
+                    <option value="">Выберите вариант</option>
+                    <option value="Да">Да</option>
+                    <option value="Нет">Нет</option>
+                    <option value="Немного">Немного</option>
+                </select>
+                <div id="experienceError" class="error">Пожалуйста, выберите вариант</div>
+            </div>
+
+            <div class="form-group">
+                <label>Пожелания</label>
+                <textarea id="wishes" placeholder="С кем хотите проект, интересные темы, роли и т.д."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Telegram</label>
+                <input type="text" id="telegram" readonly>
+            </div>
+
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+
+    <script>
+        // Инициализация Telegram Web App
+        const tg = window.Telegram.WebApp;
+
+        // Показываем кнопку "Назад" в интерфейсе Telegram
+        tg.BackButton.show();
+
+        // Обработчик нажатия кнопки "Назад"
+        tg.BackButton.onClick(() => {
+            tg.close();
+        });
+
+        // Устанавливаем имя пользователя Telegram в соответствующее поле
+        document.getElementById('telegram').value = tg.initDataUnsafe.user?.username || 'Не удалось получить';
+
+        // Валидация формы
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            // Проверка обязательных полей
+            const requiredFields = [
+                { id: 'lastName', errorId: 'lastNameError', validate: value => value.trim() !== '' },
+                { id: 'firstName', errorId: 'firstNameError', validate: value => value.trim() !== '' },
+                { id: 'group', errorId: 'groupError', validate: value => value !== '' },
+                { id: 'phone', errorId: 'phoneError', validate: validatePhone },
+                { id: 'email', errorId: 'emailError', validate: validateEmail },
+                { id: 'laboratory', errorId: 'laboratoryError', validate: value => value !== '' },
+                { id: 'experience', errorId: 'experienceError', validate: value => value !== '' }
+            ];
+
+            // Проверка направлений (хотя бы один выбран)
+            const directionsChecked = document.querySelectorAll('#directions input[type="checkbox"]:checked').length > 0;
+            if (!directionsChecked) {
+                document.getElementById('directionsError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('directionsError').style.display = 'none';
+            }
+
+            // Проверка остальных обязательных полей
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field.id);
+                const errorElement = document.getElementById(field.errorId);
+                const value = element.value;
+
+                if (!field.validate(value)) {
+                    errorElement.style.display = 'block';
+                    isValid = false;
+                } else {
+                    errorElement.style.display = 'none';
+                }
+            });
+
+            if (isValid) {
+                // Сбор данных формы
+                const formData = {
+                    lastName: document.getElementById('lastName').value,
+                    firstName: document.getElementById('firstName').value,
+                    middleName: document.getElementById('middleName').value,
+                    group: document.getElementById('group').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    laboratory: document.getElementById('laboratory').value,
+                    directions: Array.from(document.querySelectorAll('#directions input[type="checkbox"]:checked')).map(el => el.value),
+                    experience: document.getElementById('experience').value,
+                    wishes: document.getElementById('wishes').value,
+                    telegram: document.getElementById('telegram').value
+                };
+
+                // Здесь можно отправить данные на сервер
+                console.log('Данные формы:', formData);
+
+                // В реальном приложении здесь будет запрос к вашему API
+                // fetch('ваш-api-эндпоинт', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(formData)
+                // })
+                // .then(response => response.json())
+                // .then(data => {
+                //     tg.showAlert('Спасибо! Ваши данные успешно отправлены.');
+                //     tg.close();
+                // })
+                // .catch(error => {
+                //     tg.showAlert('Произошла ошибка при отправке данных. Пожалуйста, попробуйте позже.');
+                // });
+
+                // Для демонстрации просто показываем сообщение и закрываем
+                tg.showAlert('Спасибо! Ваши данные успешно отправлены.');
+                tg.close();
+            }
+        });
+
+        // Функции валидации
+        function validatePhone(phone) {
+            const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+            return phoneRegex.test(phone);
+        }
+
+        function validateEmail(email) {
+            return email.includes('@') && email.length > 3;
+        }
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            tg.expand();
+        });
+    </script>
+</body>
+</html>
