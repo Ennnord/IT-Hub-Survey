@@ -22,6 +22,7 @@
         h1 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -37,37 +38,57 @@
         select,
         textarea {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 6px;
             box-sizing: border-box;
+            font-size: 15px;
         }
         textarea {
             height: 100px;
             resize: vertical;
         }
-        .name-fields {
-            display: flex;
-            gap: 10px;
-        }
-        .name-fields div {
-            flex: 1;
-        }
         .checkbox-group {
-            margin-top: 5px;
+        margin-top: 10px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 8px;
         }
         .checkbox-item {
-            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            cursor: pointer; /* Добавляем курсор-указатель */
+        }
+        .checkbox-item:hover {
+            background: #e9ecef;
+        }
+        .checkbox-item input {
+            margin-right: 8px;
+            width: auto;
+            pointer-events: none; /* Отключаем события мыши на самом инпуте */
+        }
+        .checkbox-item label {
+            cursor: pointer; /* Курсор-указатель для текста */
+            flex-grow: 1; /* Растягиваем текст на всю доступную ширину */
+            margin: 0; /* Убираем стандартные отступы */
+            padding: 8px 0; /* Добавляем паддинг для увеличения кликабельной области */
         }
         button {
             background-color: #0088cc;
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
             width: 100%;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: background-color 0.2s;
         }
         button:hover {
             background-color: #0077bb;
@@ -82,12 +103,18 @@
             margin-top: 5px;
             display: none;
         }
+        .form-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Опрос для новых участников</h1>
-        <p>Пожалуйста, заполните все обязательные поля (отмечены *) до конца августа</p>
+        <p class="form-description">Пожалуйста, заполните все обязательные поля (отмечены *)</p>
 
         <form id="surveyForm">
             <div class="form-group">
@@ -111,10 +138,94 @@
                 <label class="required">Группа</label>
                 <select id="group" required>
                     <option value="">Выберите группу</option>
-                    <option value="Группа 1">Группа 1</option>
-                    <option value="Группа 2">Группа 2</option>
-                    <option value="Группа 3">Группа 3</option>
-                    <!-- Добавьте другие группы по необходимости -->
+                    <option value="ЭД401">ЭД401</option>
+                    <option value="ЭДК203">ЭДК203</option>
+                    <option value="ЭС124">ЭС124</option>
+                    <option value="ТС124">ТС124</option>
+                    <option value="ЭС322">ЭС322</option>
+                    <option value="ЭМ-101">ЭМ-101</option>
+                    <option value="ЭМ-201">ЭМ-201</option>
+                    <option value="ЮД101">ЮД101</option>
+                    <option value="ЮС124.1">ЮС124.1</option>
+                    <option value="ЮС124.2">ЮС124.2</option>
+                    <option value="ЮС124.3">ЮС124.3</option>
+                    <option value="ЮС124.4">ЮС124.4</option>
+                    <option value="К1Э1(9)">К1Э1(9)</option>
+                    <option value="К1Т2(9)">К1Т2(9)</option>
+                    <option value="К1Л1(9)">К1Л1(9)</option>
+                    <option value="К1Л2(9)">К1Л2(9)</option>
+                    <option value="К1И1(9)">К1И1(9)</option>
+                    <option value="К1И2(9)">К1И2(9)</option>
+                    <option value="К1Ю1(9)">К1Ю1(9)</option>
+                    <option value="К1Ю2(9)">К1Ю2(9)</option>
+                    <option value="К1Ю3(9)">К1Ю3(9)</option>
+                    <option value="К1Ю4(9)">К1Ю4(9)</option>
+                    <option value="К1М1(9)">К1М1(9)</option>
+                    <option value="К1М2(9)">К1М2(9)</option>
+                    <option value="К1Ф1(9)">К1Ф1(9)</option>
+                    <option value="К1Э1(11)">К1Э1(11)</option>
+                    <option value="К2Э2(9)">К2Э2(9)</option>
+                    <option value="К2Э1(9)">К2Э1(9)</option>
+                    <option value="К1И1(11)">К1И1(11)</option>
+                    <option value="К2И1(9)">К2И1(9)</option>
+                    <option value="К2И2(9)">К2И2(9)</option>
+                    <option value="К2Т1(9)">К2Т1(9)</option>
+                    <option value="К1Ю1(11)">К1Ю1(11)</option>
+                    <option value="К2Ю1(9)">К2Ю1(9)</option>
+                    <option value="К2Ю2(9)">К2Ю2(9)</option>
+                    <option value="К2Ю3(9)">К2Ю3(9)</option>
+                    <option value="К2Ю4(9)">К2Ю4(9)</option>
+                    <option value="К3И1(9)">К3И1(9)</option>
+                    <option value="К2Ю1(11)">К2Ю1(11)</option>
+                    <option value="К3Ю1(9)">К3Ю1(9)</option>
+                    <option value="К3Ю2(9)">К3Ю2(9)</option>
+                    <option value="ПД101">ПД101</option>
+                    <option value="ПД401">ПД401</option>
+                    <option value="МД101">МД101</option>
+                    <option value="МД401">МД401</option>
+                    <option value="ИД401">ИД401</option>
+                    <option value="ИДК203">ИДК203</option>
+                    <option value="МС124">МС124</option>
+                    <option value="ИС124">ИС124</option>
+                    <option value="ОДВЛ1.1">ОДВЛ1.1</option>
+                    <option value="ОДВЛ1.2">ОДВЛ1.2</option>
+                    <option value="ОДВЛ2.1">ОДВЛ2.1</option>
+                    <option value="ОДВЛ3.1">ОДВЛ3.1</option>
+                    <option value="ОДВЛ4.1">ОДВЛ4.1</option>
+                    <option value="ИC1.1">ИC1.1</option>
+                    <option value="ИC1.2">ИC1.2</option>
+                    <option value="ИC2.1">ИC2.1</option>
+                    <option value="ИC2.2">ИC2.2</option>
+                    <option value="ИС3.1">ИС3.1</option>
+                    <option value="ЭЗ301">ЭЗ301</option>
+                    <option value="ТС223">ТС223</option>
+                    <option value="ТИГ1.1">ТИГ1.1</option>
+                    <option value="ТИГ1.2">ТИГ1.2</option>
+                    <option value="ТИГ2.1">ТИГ2.1</option>
+                    <option value="ТИГ2.2">ТИГ2.2</option>
+                    <option value="ЮЗ301">ЮЗ301</option>
+                    <option value="ЮС223.1">ЮС223.1</option>
+                    <option value="ЮС223.2">ЮС223.2</option>
+                    <option value="ЮС223.3">ЮС223.3</option>
+                    <option value="ЮМЗУ-201">ЮМЗУ-201</option>
+                    <option value="ЮМЗУ-202">ЮМЗУ-202</option>
+                    <option value="ЮМЗГМУ-201">ЮМЗГМУ-201</option>
+                    <option value="ЮМЗГМУ-202">ЮМЗГМУ-202</option>
+                    <option value="К2Л1(11)">К2Л1(11)</option>
+                    <option value="К3Л1(9)">К3Л1(9)</option>
+                    <option value="К3Л2(9)">К3Л2(9)</option>
+                    <option value="К3Л3(9)">К3Л3(9)</option>
+                    <option value="К2Т1(11)">К2Т1(11)</option>
+                    <option value="К3Т1(9)">К3Т1(9)</option>
+                    <option value="К3Т2(9)">К3Т2(9)</option>
+                    <option value="К4И1(9)">К4И1(9)</option>
+                    <option value="К4И2(9)">К4И2(9)</option>
+                    <option value="К3И1(11)">К3И1(11)</option>
+                    <option value="УПЗУ201">УПЗУ201</option>
+                    <option value="УПЗУ301">УПЗУ301</option>
+                    <option value="МДК203">МДК203</option>
+                    <option value="ЭД201">ЭД201</option>
+                    <option value="ЮД201">ЮД201</option>
                 </select>
                 <div id="groupError" class="error">Пожалуйста, выберите группу</div>
             </div>
@@ -135,10 +246,11 @@
                 <label class="required">Лаборатория</label>
                 <select id="laboratory" required>
                     <option value="">Выберите лабораторию</option>
-                    <option value="Лаборатория 1">Лаборатория 1</option>
-                    <option value="Лаборатория 2">Лаборатория 2</option>
-                    <option value="Лаборатория 3">Лаборатория 3</option>
-                    <!-- Добавьте другие лаборатории по необходимости -->
+                    <option value="FINPROCESS TECH">FINPROCESS TECH</option>
+                    <option value="INNO TRAVEL">INNO TRAVEL</option>
+                    <option value="LEGAL TECH">LEGAL TECH</option>
+                    <option value="PSY TECH">PSY TECH</option>
+                    <option value="ИТ-Лаборатория">ИТ-Лаборатория</option>
                 </select>
                 <div id="laboratoryError" class="error">Пожалуйста, выберите лабораторию</div>
             </div>
@@ -146,19 +258,50 @@
             <div class="form-group">
                 <label class="required">Направления</label>
                 <div class="checkbox-group" id="directions">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="direction1" name="direction" value="Направление 1">
-                        <label for="direction1">Направление 1</label>
+                    <div class="checkbox-item" onclick="document.getElementById('direction1').click()">
+                        <input type="checkbox" id="direction1" name="direction" value="Проектный менеджмент">
+                        <label for="direction1">Проектный менеджмент</label>
                     </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="direction2" name="direction" value="Направление 2">
-                        <label for="direction2">Направление 2</label>
+                    <div class="checkbox-item" onclick="document.getElementById('direction2').click()">
+                        <input type="checkbox" id="direction2" name="direction" value="Unity">
+                        <label for="direction2">Unity</label>
                     </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="direction3" name="direction" value="Направление 3">
-                        <label for="direction3">Направление 3</label>
+                    <div class="checkbox-item" onclick="document.getElementById('direction3').click()">
+                        <input type="checkbox" id="direction3" name="direction" value="Фронтенд">
+                        <label for="direction3">Фронтенд</label>
                     </div>
-                    <!-- Добавьте другие направления по необходимости -->
+                    <div class="checkbox-item" onclick="document.getElementById('direction4').click()">
+                        <input type="checkbox" id="direction4" name="direction" value="Бэкенд">
+                        <label for="direction4">Бэкенд</label>
+                    </div>
+                    <div class="checkbox-item" onclick="document.getElementById('direction5').click()">
+                        <input type="checkbox" id="direction5" name="direction" value="Нейронные сети">
+                        <label for="direction5">Нейронные сети</label>
+                    </div>
+                    <div class="checkbox-item" onclick="document.getElementById('direction6').click()">
+                        <input type="checkbox" id="direction6" name="direction" value="Цифровой дизайн">
+                        <label for="direction6">Цифровой дизайн</label>
+                    </div>
+                    <div class="checkbox-item" onclick="document.getElementById('direction7').click()">
+                        <input type="checkbox" id="direction7" name="direction" value="ТГ-боты">
+                        <label for="direction7">ТГ-боты</label>
+                    </div>
+                    <div class="checkbox-item" onclick="document.getElementById('direction8').click()">
+                        <input type="checkbox" id="direction8" name="direction" value="Системное администрирование">
+                        <label for="direction8">Системное администрирование</label>
+                    </div>
+                    <div class="checkbox-item" onclick="document.getElementById('direction9').click()">
+                        <input type="checkbox" id="direction9" name="direction" value="Базы данных">
+                        <label for="direction9">Базы данных</label>
+                    </div>
+                    <div class="checkbox-item" onclick="document.getElementById('direction10').click()">
+                        <input type="checkbox" id="direction10" name="direction" value="Научные статьи">
+                        <label for="direction10">Научные статьи</label>
+                    </div>
+                    <div class="checkbox-item" onclick="document.getElementById('direction11').click()">
+                        <input type="checkbox" id="direction11" name="direction" value="Тестирование">
+                        <label for="direction11">Тестирование</label>
+                    </div>
                 </div>
                 <div id="directionsError" class="error">Пожалуйста, выберите хотя бы одно направление</div>
             </div>
@@ -261,21 +404,6 @@
 
                 // Здесь можно отправить данные на сервер
                 console.log('Данные формы:', formData);
-
-                // В реальном приложении здесь будет запрос к вашему API
-                // fetch('ваш-api-эндпоинт', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(formData)
-                // })
-                // .then(response => response.json())
-                // .then(data => {
-                //     tg.showAlert('Спасибо! Ваши данные успешно отправлены.');
-                //     tg.close();
-                // })
-                // .catch(error => {
-                //     tg.showAlert('Произошла ошибка при отправке данных. Пожалуйста, попробуйте позже.');
-                // });
 
                 // Для демонстрации просто показываем сообщение и закрываем
                 tg.showAlert('Спасибо! Ваши данные успешно отправлены.');
