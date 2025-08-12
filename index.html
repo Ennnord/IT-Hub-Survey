@@ -389,25 +389,22 @@
             if (isValid) {
                 // Сбор данных формы
                 const formData = {
-                    lastName: document.getElementById('lastName').value,
-                    firstName: document.getElementById('firstName').value,
-                    middleName: document.getElementById('middleName').value,
-                    group: document.getElementById('group').value,
-                    phone: document.getElementById('phone').value,
+                    surname: document.getElementById('lastName').value,
+                    name: document.getElementById('firstName').value,  // Это поле соответствует БД
+                    patronymic: document.getElementById('middleName').value,
+                    study_group: document.getElementById('group').value,
+                    phone_number: document.getElementById('phone').value,
                     email: document.getElementById('email').value,
                     laboratory: document.getElementById('laboratory').value,
                     directions: Array.from(document.querySelectorAll('#directions input[type="checkbox"]:checked')).map(el => el.value),
                     experience: document.getElementById('experience').value,
                     wishes: document.getElementById('wishes').value,
-                    telegram: document.getElementById('telegram').value
+                    telegram_nickname: document.getElementById('telegram').value  // Исправлено с telegram на telegram_nickname
                 };
 
                 // Здесь можно отправить данные на сервер
-                tg.sendData(JSON.stringify(formData))
+                tg.sendData(JSON.stringify(formData));
 
-                // Для демонстрации просто показываем сообщение и закрываем
-                tg.showAlert('Спасибо! Ваши данные успешно отправлены.');
-                tg.close();
             }
         });
 
