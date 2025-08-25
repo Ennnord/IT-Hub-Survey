@@ -109,6 +109,13 @@
             margin-bottom: 20px;
             text-align: center;
         }
+        .checkbox-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .checkbox-item.disabled:hover {
+            background: #f8f9fa;
+        }
     </style>
 </head>
 <body>
@@ -222,7 +229,7 @@
                     <option value="ЭЗ301">ЭЗ301</option>
                     <option value="ТС223">ТС223</option>
                     <option value="ТИГ1.1">ТИГ1.1</option>
-                    <option value="ТИГ1.2">ТИГ1.2</option>
+                    <option value="ТИГ1.2">ТИG1.2</option>
                     <option value="ТИГ2.1">ТИГ2.1</option>
                     <option value="ТИГ2.2">ТИГ2.2</option>
                     <option value="ЮЗ301">ЮЗ301</option>
@@ -230,13 +237,13 @@
                     <option value="ЮС223.2">ЮС223.2</option>
                     <option value="ЮС223.3">ЮС223.3</option>
                     <option value="ЮМЗУ-201">ЮМЗУ-201</option>
-                    <option value="ЮМЗУ-202">ЮМЗУ-202</option>
+                    <option value="ЮMЗУ-202">ЮМЗУ-202</option>
                     <option value="ЮМЗГМУ-201">ЮМЗГМУ-201</option>
                     <option value="ЮМЗГМУ-202">ЮМЗГМУ-202</option>
                     <option value="УПЗУ201">УПЗУ201</option>
                     <option value="УПЗУ301">УПЗУ301</option>
                     <option value="МДК203">МДК203</option>
-                    <option value="ЭД201">ЭД201</option>
+                    <option value="ЭД201">ЭD201</option>
                     <option value="ЮД201">ЮД201</option>
                 </select>
                 <div id="groupError" class="error">Пожалуйста, выберите группу</div>
@@ -256,13 +263,13 @@
 
             <div class="form-group">
                 <label class="required">Лаборатория</label>
-                <select id="laboratory" required>
+                <select id="laboratory" required onchange="updateAvailableDirections()">
                     <option value="">Выберите лабораторию</option>
-                    <option value="FINPROCESS TECH">FINPROCESS TECH</option>
-                    <option value="INNO TRAVEL">INNO TRAVEL</option>
-                    <option value="LEGAL TECH">LEGAL TECH</option>
-                    <option value="PSY TECH">PSY TECH</option>
-                    <option value="ИТ-Лаборатория">ИТ-Лаборатория</option>
+                    <option value="1">ИТ-Лаборатория</option>
+                    <option value="2">PSY TECH</option>
+                    <option value="3">INNO TRAVEL</option>
+                    <option value="4">FINPROCESS TECH</option>
+                    <option value="5">LEGAL TECH</option>
                 </select>
                 <div id="laboratoryError" class="error">Пожалуйста, выберите лабораторию</div>
             </div>
@@ -270,50 +277,7 @@
             <div class="form-group">
                 <label class="required">Направления</label>
                 <div class="checkbox-group" id="directions">
-                    <div class="checkbox-item" onclick="document.getElementById('direction1').click()">
-                        <input type="checkbox" id="direction1" name="direction" value="Проектный менеджмент">
-                        <label for="direction1">Проектный менеджмент</label>
-                    </div>
-                    <div class="checkbox-item" onclick="document.getElementById('direction2').click()">
-                        <input type="checkbox" id="direction2" name="direction" value="Unity">
-                        <label for="direction2">Unity</label>
-                    </div>
-                    <div class="checkbox-item" onclick="document.getElementById('direction3').click()">
-                        <input type="checkbox" id="direction3" name="direction" value="frontend">
-                        <label for="direction3">Фронтенд</label>
-                    </div>
-                    <div class="checkbox-item" onclick="document.getElementById('direction4').click()">
-                        <input type="checkbox" id="direction4" name="direction" value="backend">
-                        <label for="direction4">Бэкенд</label>
-                    </div>
-                    <div class="checkbox-item" onclick="document.getElementById('direction5').click()">
-                        <input type="checkbox" id="direction5" name="direction" value="Нейронные сети">
-                        <label for="direction5">Нейронные сети</label>
-                    </div>
-                    <div class="checkbox-item" onclick="document.getElementById('direction6').click()">
-                        <input type="checkbox" id="direction6" name="direction" value="Цифровой дизайн">
-                        <label for="direction6">Цифровой дизайн</label>
-                    </div>
-                    <div class="checkbox-item" onclick="document.getElementById('direction7').click()">
-                        <input type="checkbox" id="direction7" name="direction" value="ТГ-боты">
-                        <label for="direction7">ТГ-боты</label>
-                    </div>
-                    <div class="checkbox-item" onclick="document.getElementById('direction8').click()">
-                        <input type="checkbox" id="direction8" name="direction" value="Системное администрирование">
-                        <label for="direction8">Системное администрирование</label>
-                    </div>
-                    <div class="checkbox-item" onclick="document.getElementById('direction9').click()">
-                        <input type="checkbox" id="direction9" name="direction" value="Базы данных">
-                        <label for="direction9">Базы данных</label>
-                    </div>
-                    <div class="checkbox-item" onclick="document.getElementById('direction10').click()">
-                        <input type="checkbox" id="direction10" name="direction" value="Научные статьи">
-                        <label for="direction10">Научные статьи</label>
-                    </div>
-                    <div class="checkbox-item" onclick="document.getElementById('direction11').click()">
-                        <input type="checkbox" id="direction11" name="direction" value="Тестирование">
-                        <label for="direction11">Тестирование</label>
-                    </div>
+                    <!-- Направления будут обновляться динамически -->
                 </div>
                 <div id="directionsError" class="error">Пожалуйста, выберите хотя бы одно направление</div>
             </div>
@@ -341,6 +305,91 @@
     <script>
         // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
+
+        // Соотношение лабораторий и направлений
+        const labDirections = {
+            // ИТ-Лаборатория (id=1)
+            1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+            // PSY TECH (id=2)
+            2: [1, 10],
+            // INNO TRAVEL (id=3)
+            3: [1, 10, 18, 19, 20, 21],
+            // FINPROCESS TECH (id=4)
+            4: [1, 10, 12, 13, 14, 16, 17],
+            // LEGAL TECH (id=5)
+            5: [1, 10, 22, 23, 24, 25]
+        };
+
+        // Список всех направлений (из третьего файла)
+        const allDirections = [
+            {id: 1, name: "Проектный менеджмент"},
+            {id: 2, name: "Unity"},
+            {id: 3, name: "Frontend"},
+            {id: 4, name: "Backend"},
+            {id: 5, name: "Нейронные сети"},
+            {id: 6, name: "Цифровой дизайн"},
+            {id: 7, name: "ТГ-боты"},
+            {id: 8, name: "Системное администрирование"},
+            {id: 9, name: "Базы данных"},
+            {id: 10, name: "Научные статьи"},
+            {id: 11, name: "Тестирование"},
+            {id: 12, name: "Бизнес-аналитика"},
+            {id: 13, name: "Финансовое моделирование"},
+            {id: 14, name: "Цифровой маркетинг"},
+            {id: 16, name: "1С-программирование"},
+            {id: 17, name: "Excel"},
+            {id: 18, name: "Гастрономический туризм"},
+            {id: 19, name: "Цифровой туризм"},
+            {id: 20, name: "Маркетинг туристических услуг"},
+            {id: 21, name: "Анализ туристических данных"},
+            {id: 22, name: "Правовые риски и регулирование цифровых технологий"},
+            {id: 23, name: "Мониторинг и аналитика правового поля"},
+            {id: 24, name: "Судебная практика и анализ кейсов"},
+            {id: 25, name: "Разработка юридических продуктов и автоматизация"}
+        ];
+
+        // Функция для обновления доступных направлений
+        function updateAvailableDirections() {
+            const labSelect = document.getElementById('laboratory');
+            const directionsContainer = document.getElementById('directions');
+            const selectedLabId = labSelect.value;
+
+            // Очищаем контейнер с направлениями
+            directionsContainer.innerHTML = '';
+
+            if (selectedLabId) {
+                // Получаем доступные направления для выбранной лаборатории
+                const availableDirectionIds = labDirections[selectedLabId];
+
+                // Создаем чекбоксы для доступных направлений
+                availableDirectionIds.forEach(dirId => {
+                    const direction = allDirections.find(d => d.id === dirId);
+                    if (direction) {
+                        const checkboxId = `direction-${direction.id}`;
+
+                        const checkboxItem = document.createElement('div');
+                        checkboxItem.className = 'checkbox-item';
+                        checkboxItem.onclick = function() {
+                            document.getElementById(checkboxId).click();
+                        };
+
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.id = checkboxId;
+                        checkbox.name = 'direction';
+                        checkbox.value = direction.name;
+
+                        const label = document.createElement('label');
+                        label.htmlFor = checkboxId;
+                        label.textContent = direction.name;
+
+                        checkboxItem.appendChild(checkbox);
+                        checkboxItem.appendChild(label);
+                        directionsContainer.appendChild(checkboxItem);
+                    }
+                });
+            }
+        }
 
         // Валидация формы
         document.getElementById('surveyForm').addEventListener('submit', function(e) {
@@ -391,7 +440,7 @@
                     study_group: document.getElementById('group').value,
                     phone_number: document.getElementById('phone').value,
                     email: document.getElementById('email').value,
-                    laboratory: document.getElementById('laboratory').value,
+                    laboratory: document.getElementById('laboratory').options[document.getElementById('laboratory').selectedIndex].text,
                     directions: Array.from(document.querySelectorAll('#directions input[type="checkbox"]:checked')).map(el => el.value),
                     experience: document.getElementById('experience').value,
                     wishes: document.getElementById('wishes').value
@@ -415,6 +464,8 @@
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
             tg.expand();
+            // Инициализируем пустой список направлений
+            updateAvailableDirections();
         });
     </script>
 </body>
