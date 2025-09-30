@@ -124,6 +124,7 @@
         <p class="form-description">Пожалуйста, заполните все обязательные поля (отмечены *)</p>
 
         <form id="surveyForm">
+
             <div class="form-group">
                 <label class="required">Фамилия</label>
                 <input type="text" id="lastName" required>
@@ -139,6 +140,16 @@
             <div class="form-group">
                 <label>Отчество</label>
                 <input type="text" id="middleName">
+            </div>
+
+            <div class="form-group">
+                <label class="required">Город</label>
+                <select id="city" required onchange="updateGroups()">
+                    <option value="Ростов-На-Дону" selected>Ростов-На-Дону</option>
+                    <option value="Донецк">Донецк</option>
+                    <option value="Сальск">Сальск</option>
+                </select>
+                <div id="cityError" class="error">Пожалуйста, выберите город</div>
             </div>
 
             <div class="form-group">
@@ -207,8 +218,8 @@
         // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
 
-        // Список всех групп (исправленная опечатка в "ЮС124.3")
-        const groups = [
+        // Список всех групп для Ростова-На-Дону
+        const rostovGroups = [
           "К1А1(9)",
           "К1И1(9)",
           "К1И1(11)",
@@ -371,6 +382,40 @@
           "ЮС323.3"
         ];
 
+        // Список групп для Донецка
+        const donetskGroups = [
+            "К1И9",
+            "К1Л9",
+            "К1Ю9",
+            "К1И11",
+            "К2И9",
+            "К1Л11",
+            "К2Л9",
+            "К1Ю11",
+            "К2Ю9",
+            "К3И9",
+            "К2Л11",
+            "К3Л9",
+            "К2Ю11",
+            "К3Ю9",
+            "К3И11",
+            "К4И9"
+        ];
+
+        // Список групп для Сальска
+        const salskGroups = [
+            "К1Ю(11)",
+            "К1Ю1",
+            "К1Ю2",
+            "К1ПД(11)",
+            "К1ПД 1",
+            "К1ПД 2",
+            "К1ПД 3",
+            "К1П(11)",
+            "К1П",
+            "К1Д"
+        ];
+
         // Соотношение лабораторий и направлений
         const labDirections = {
             // ИТ-Лаборатория (id=1)
@@ -413,11 +458,31 @@
             {id: 25, name: "Разработка юридических продуктов и автоматизация"}
         ];
 
-        // Функция для заполнения выпадающего списка групп
-        function populateGroups() {
+        // Функция для обновления списка групп в зависимости от выбранного города
+        function updateGroups() {
+            const citySelect = document.getElementById('city');
             const groupSelect = document.getElementById('group');
+            const selectedCity = citySelect.value;
 
-            // Используем существующий массив groups
+            // Очищаем список групп
+            groupSelect.innerHTML = '<option value="">Выберите группу</option>';
+
+            let groups = [];
+
+            // Выбираем соответствующий список групп в зависимости от города
+            switch(selectedCity) {
+                case 'Ростов-На-Дону':
+                    groups = rostovGroups;
+                    break;
+                case 'Донецк':
+                    groups = donetskGroups;
+                    break;
+                case 'Сальск':
+                    groups = salskGroups;
+                    break;
+            }
+
+            // Заполняем список групп
             groups.forEach(group => {
                 const option = document.createElement('option');
                 option.value = group;
@@ -477,6 +542,7 @@
 
             // Проверка обязательных полей
             const requiredFields = [
+                { id: 'city', errorId: 'cityError', validate: value => value !== '' },
                 { id: 'lastName', errorId: 'lastNameError', validate: value => value.trim() !== '' },
                 { id: 'firstName', errorId: 'firstNameError', validate: value => value.trim() !== '' },
                 { id: 'group', errorId: 'groupError', validate: value => value !== '' },
@@ -512,6 +578,7 @@
             if (isValid) {
                 // Сбор данных формы
                 const formData = {
+                    city: document.getElementById('city').value,
                     surname: document.getElementById('lastName').value,
                     name: document.getElementById('firstName').value,
                     patronymic: document.getElementById('middleName').value,
@@ -551,8 +618,8 @@
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
             tg.expand();
-            // Заполняем список групп
-            populateGroups();
+            // Заполняем список групп для города по умолчанию (Ростов-На-Дону)
+            updateGroups();
             // Инициализируем пустой список направлений
             updateAvailableDirections();
         });
