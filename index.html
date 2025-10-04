@@ -295,7 +295,6 @@
           "К3Ю2(9)",
           "К3Ю3(9)",
 
-          // Остальные группы (по алфавиту и увеличению числа)
           "ИДК103",
           "ИДК203",
           "ИД401",
@@ -413,7 +412,20 @@
             "К1ПД 3",
             "К1П(11)",
             "К1П",
-            "К1Д"
+            "К1Д",
+            "К2Ю(11)",
+            "К2Ю1",
+            "К2Ю2",
+
+            "К2ПД(11)",
+            "К2ПД 1",
+            "К2ПД 2",
+            "К2ПД 3",
+            "К2П(11)",
+            "К2П",
+            "К2Д",
+            "К2ДО",
+            "К2ДО(11)"
         ];
 
         // Соотношение лабораторий и направлений
@@ -542,9 +554,9 @@
 
             // Проверка обязательных полей
             const requiredFields = [
-                { id: 'city', errorId: 'cityError', validate: value => value !== '' },
                 { id: 'lastName', errorId: 'lastNameError', validate: value => value.trim() !== '' },
                 { id: 'firstName', errorId: 'firstNameError', validate: value => value.trim() !== '' },
+                { id: 'city', errorId: 'cityError', validate: value => value !== '' },
                 { id: 'group', errorId: 'groupError', validate: value => value !== '' },
                 { id: 'phone', errorId: 'phoneError', validate: validatePhone },
                 { id: 'email', errorId: 'emailError', validate: validateEmail },
