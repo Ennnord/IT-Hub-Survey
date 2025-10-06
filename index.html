@@ -69,9 +69,8 @@
         .checkbox-item input {
             margin-right: 8px;
             width: auto;
-            pointer-events: none;
         }
-        .checkbox-item label {
+        .checkbox-item .checkbox-label {
             cursor: pointer;
             flex-grow: 1;
             margin: 0;
@@ -115,6 +114,10 @@
         }
         .checkbox-item.disabled:hover {
             background: #f8f9fa;
+        }
+        .checkbox-item.selected {
+            background: #e3f2fd;
+            border: 1px solid #0088cc;
         }
     </style>
 </head>
@@ -527,17 +530,13 @@
 
                         // Обработчик клика на всю кнопку
                         checkboxItem.addEventListener('click', function(e) {
-                            // Предотвращаем двойное срабатывание если кликнули на чекбокс
-                            if (e.target.type !== 'checkbox') {
+                            // Предотвращаем двойное срабатывание если кликнули на чекбокс или лейбл
+                            if (e.target.type !== 'checkbox' && !e.target.classList.contains('checkbox-label')) {
                                 const checkbox = this.querySelector('input[type="checkbox"]');
                                 checkbox.checked = !checkbox.checked;
 
-                                // Добавляем визуальную обратную связь
-                                if (checkbox.checked) {
-                                    this.style.background = '#e3f2fd';
-                                } else {
-                                    this.style.background = '#f8f9fa';
-                                }
+                                // Обновляем стиль
+                                updateCheckboxStyle(this, checkbox.checked);
                             }
                         });
 
@@ -550,15 +549,11 @@
                         // Обработчик изменения чекбокса для обновления стиля
                         checkbox.addEventListener('change', function() {
                             const parent = this.closest('.checkbox-item');
-                            if (this.checked) {
-                                parent.style.background = '#e3f2fd';
-                            } else {
-                                parent.style.background = '#f8f9fa';
-                            }
+                            updateCheckboxStyle(parent, this.checked);
                         });
 
-                        const label = document.createElement('label');
-                        label.htmlFor = checkboxId;
+                        const label = document.createElement('span'); // Изменил на span вместо label
+                        label.className = 'checkbox-label'; // Добавил класс
                         label.textContent = direction.name;
 
                         checkboxItem.appendChild(checkbox);
@@ -566,6 +561,15 @@
                         directionsContainer.appendChild(checkboxItem);
                     }
                 });
+            }
+        }
+
+        // Функция для обновления стиля чекбокса
+        function updateCheckboxStyle(element, isChecked) {
+            if (isChecked) {
+                element.classList.add('selected');
+            } else {
+                element.classList.remove('selected');
             }
         }
 
