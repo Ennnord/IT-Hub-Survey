@@ -187,7 +187,7 @@
             </div>
 
             <div class="form-group">
-                <label class="required">Направления</label>
+                <label>Направления</label>
                 <div class="checkbox-group" id="directions">
                     <!-- Направления будут обновляться динамически -->
                 </div>
@@ -524,15 +524,38 @@
 
                         const checkboxItem = document.createElement('div');
                         checkboxItem.className = 'checkbox-item';
-                        checkboxItem.onclick = function() {
-                            document.getElementById(checkboxId).click();
-                        };
+
+                        // Обработчик клика на всю кнопку
+                        checkboxItem.addEventListener('click', function(e) {
+                            // Предотвращаем двойное срабатывание если кликнули на чекбокс
+                            if (e.target.type !== 'checkbox') {
+                                const checkbox = this.querySelector('input[type="checkbox"]');
+                                checkbox.checked = !checkbox.checked;
+
+                                // Добавляем визуальную обратную связь
+                                if (checkbox.checked) {
+                                    this.style.background = '#e3f2fd';
+                                } else {
+                                    this.style.background = '#f8f9fa';
+                                }
+                            }
+                        });
 
                         const checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
                         checkbox.id = checkboxId;
                         checkbox.name = 'direction';
                         checkbox.value = direction.name;
+
+                        // Обработчик изменения чекбокса для обновления стиля
+                        checkbox.addEventListener('change', function() {
+                            const parent = this.closest('.checkbox-item');
+                            if (this.checked) {
+                                parent.style.background = '#e3f2fd';
+                            } else {
+                                parent.style.background = '#f8f9fa';
+                            }
+                        });
 
                         const label = document.createElement('label');
                         label.htmlFor = checkboxId;
@@ -564,14 +587,8 @@
                 { id: 'experience', errorId: 'experienceError', validate: value => value !== '' }
             ];
 
-            // Проверка направлений
-            const directionsChecked = document.querySelectorAll('#directions input[type="checkbox"]:checked').length > 0;
-            if (!directionsChecked) {
-                document.getElementById('directionsError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('directionsError').style.display = 'none';
-            }
+            // Скрываем ошибку для направлений (теперь поле необязательное)
+            document.getElementById('directionsError').style.display = 'none';
 
             // Проверка остальных полей
             requiredFields.forEach(field => {
