@@ -62,6 +62,7 @@
             border-radius: 6px;
             transition: background 0.2s;
             cursor: pointer;
+            border: 1px solid #ddd;
         }
         .checkbox-item:hover {
             background: #e9ecef;
@@ -69,12 +70,14 @@
         .checkbox-item input {
             margin-right: 8px;
             width: auto;
+            pointer-events: none; /* Отключаем события мыши на самом чекбоксе */
         }
         .checkbox-item .checkbox-label {
             cursor: pointer;
             flex-grow: 1;
             margin: 0;
             padding: 8px 0;
+            pointer-events: none; /* Отключаем события мыши на тексте */
         }
         button {
             background-color: #0088cc;
@@ -223,6 +226,7 @@
 
         // Список всех групп для Ростова-На-Дону
         const rostovGroups = [
+          // ... (остальные группы остаются без изменений)
           "К1А1(9)",
           "К1И1(9)",
           "К1И1(11)",
@@ -374,7 +378,7 @@
           "ЮМЗУ-301,ЮМЗУ-302",
           "ЮС124.1",
           "ЮС124.2",
-          "ЮС124.3",  // Исправлено: была латинская S вместо кириллической С
+          "ЮС124.3",
           "ЮС124.4",
           "ЮС223.1",
           "ЮС223.2",
@@ -528,16 +532,11 @@
                         const checkboxItem = document.createElement('div');
                         checkboxItem.className = 'checkbox-item';
 
-                        // Обработчик клика на всю кнопку
-                        checkboxItem.addEventListener('click', function(e) {
-                            // Предотвращаем двойное срабатывание если кликнули на чекбокс или лейбл
-                            if (e.target.type !== 'checkbox' && !e.target.classList.contains('checkbox-label')) {
-                                const checkbox = this.querySelector('input[type="checkbox"]');
-                                checkbox.checked = !checkbox.checked;
-
-                                // Обновляем стиль
-                                updateCheckboxStyle(this, checkbox.checked);
-                            }
+                        // Простой обработчик клика на всю кнопку
+                        checkboxItem.addEventListener('click', function() {
+                            const checkbox = this.querySelector('input[type="checkbox"]');
+                            checkbox.checked = !checkbox.checked;
+                            updateCheckboxStyle(this, checkbox.checked);
                         });
 
                         const checkbox = document.createElement('input');
@@ -546,14 +545,8 @@
                         checkbox.name = 'direction';
                         checkbox.value = direction.name;
 
-                        // Обработчик изменения чекбокса для обновления стиля
-                        checkbox.addEventListener('change', function() {
-                            const parent = this.closest('.checkbox-item');
-                            updateCheckboxStyle(parent, this.checked);
-                        });
-
-                        const label = document.createElement('span'); // Изменил на span вместо label
-                        label.className = 'checkbox-label'; // Добавил класс
+                        const label = document.createElement('span');
+                        label.className = 'checkbox-label';
                         label.textContent = direction.name;
 
                         checkboxItem.appendChild(checkbox);
